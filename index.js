@@ -62,7 +62,6 @@ const FUNCS = {
       .replace(/[,，|(){}]/g, space)
       .trim()
   }
-
 };
 
 /**
@@ -228,8 +227,9 @@ async function handleRequest(request) {
     let file = await gd.file(path);
     let range = request.headers.get('Range');
     const inline_down = 'true' === url.searchParams.get('inline');
+    const filename_down = url.searchParams.get('filename');
     if (gd.root.protect_file_link && basic_auth_res) return basic_auth_res;
-    return gd.down(file.id, range, inline_down);
+    return gd.down(file.id, range, inline_down, filename_down);
   }
 }
 
@@ -374,7 +374,7 @@ class googleDrive {
     return _401;
   }
 
-  async down(id, range = '', inline = false) {
+  async down(id, range = '', inline = false, filename = false) {
     let url = `https://www.googleapis.com/drive/v3/files/${id}?alt=media`;
     let requestOption = await this.requestOption();
     requestOption.headers['Range'] = range;
@@ -382,6 +382,7 @@ class googleDrive {
     const {headers} = res = new Response(res.body, res)
     this.authConfig.enable_cors_file_down && headers.append('Access-Control-Allow-Origin', '*');
     inline === true && headers.set('Content-Disposition', 'inline');
+    filename && headers.set('Content-Disposition', 'attachment; filename="'+filename+'"');
     return res;
   }
 
@@ -818,4 +819,3 @@ String.prototype.trim = function (char) {
   }
   return this.replace(/^\s+|\s+$/g, '');
 };
-//# sourceMappingURL=/sm/66a94fc3ec45fb7c78cc4edadd8e448d9b1c735f8c0cebcf7bbb4b40b9caacde.map
