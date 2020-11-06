@@ -1,4 +1,4 @@
-<h1 align="center">Google Drive Index 🔥</h1> 
+<h1 align="center">Google Drive Index 🔥</h1>
 
 <p align="center">
 <a href="https://github.com/sawankumar"><img alt="author" src="https://img.shields.io/badge/author-Sawan%20Kumar-red"/></a>
@@ -17,7 +17,7 @@ Supports features such as multi-disk, search, pagination and call-to-external pl
 ### How to Use
 1. Open [this](https://install.kenci.workers.dev/) website, verify and get the code.
 
-2. Copy the obtained Client ID, Client Secret and refresh token into [index.js](https://github.com/sawankumar/Google-Drive-Index-III/blob/master/index.js)
+2. Copy the obtained Client ID, Client Secret and refresh token into [index.js](https://github.com/tognee/Google-Drive-Index-III/blob/master/index.js)
 
 3. Deploy index.js code to Cloudflare Workers
 
@@ -60,4 +60,4 @@ const uiConfig = {
 
 ## Thanks :heart:
 
-- [5MayRain](https://github.com/5MayRain) 
+- [5MayRain](https://github.com/5MayRain)

@@ -1,5 +1,5 @@
 const authConfig = {
-  "siteName": "Google Drive Index", 
+  "siteName": "Google Drive Index",
   "siteIcon": "https://raw.githubusercontent.com/sawankumar/Google-Drive-Index-III/master/images/favicon.png",
   "version": "4.28",
   "client_id": "202264815644.apps.googleusercontent.com",
@@ -28,7 +28,7 @@ const authConfig = {
         name: "Personal Drive II",
         user: 'username',
         pass: "password",
-      }  
+      }
   ],
 
   "files_list_page_size": 500,
@@ -38,7 +38,7 @@ const authConfig = {
 };
 
 /**
- * web ui 
+ * web ui
  */
 const uiConfig = {
   "theme": "material", // DO NOT set it to classic
@@ -98,7 +98,7 @@ function html(current_drive_order = 0, model = {}) {
     window.current_drive_order = ${current_drive_order};
     window.UI = JSON.parse('${JSON.stringify(uiConfig)}');
   </script>
-  <script src="https://cdn.jsdelivr.net/gh/sawankumar/Google-Drive-Index-III@master/app.js"></script>
+  <script src="https://cdn.jsdelivr.net/gh/tognee/Google-Drive-Index-III@master/app.js"></script>
 </head>
 <body>
 </body>
