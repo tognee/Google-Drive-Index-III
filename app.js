@@ -867,7 +867,7 @@ window.onpopstate = function () {
   var path = window.location.pathname;
   render(path);
 };
-$(function () {
+document.addEventListener("DOMContentLoaded", function(event) {
   init();
   var path = window.location.pathname;
   render(path);
