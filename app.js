@@ -106,9 +106,7 @@ function nav(path) {
   if (names.length > 1){
     html += `<select class="mdui-select" onchange="window.location.href=this.value" mdui-select style="overflow:visible;">`;
     names.forEach((name, idx) => {
-      html += `<option value="/${idx}:/"  ${
-        idx === cur ? 'selected="selected"' : ""
-      } >${name}</option>`;
+      html += `<option value="/${idx}:/" ${idx === cur ? 'selected="selected"' : ""}>${name}</option>`;
     });
     html += `</select>`;
     rootPath = `/${cur}:`
