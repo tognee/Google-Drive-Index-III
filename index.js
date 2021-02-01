@@ -2,9 +2,9 @@ const authConfig = {
   "siteName": "Google Drive Index",
   "siteIcon": "https://raw.githubusercontent.com/tognee/goindex/master/images/favicon.png",
   "version": "4.28",
-  "client_id": "202264815644.apps.googleusercontent.com",
-  "client_secret": "X4Z3ca8xfWDb1Voo-F9a7ZxJ",
-  "refresh_token": "", // Authorization token
+  "client_id": "",
+  "client_secret": "",
+  "refresh_token": "", // auth token
 /**
  * Set up multiple Drives to be displayed; add multiples by format
  * [id]: It can be team folder id, subfolder id, or "root" (representing the root directory of personal disk);
@@ -31,9 +31,27 @@ const authConfig = {
       }
   ],
 
+  /**
+   * The number of files to display per page. [Recommended value is between 100 and 1000].
+   * If this value is greater than 1000, it causes an error when requesting the drive API.
+   * If this value is too small, it causes the incremental loading to fail.
+   * Another effect of this value is that if the number of files in the directory is greater than this value (i.e., if multiple pages need to be displayed), the results will be cached.
+   */
   "files_list_page_size": 500,
+  /**
+   * The number of search results displayed per page. [Recommended value is between 50 and 1000].
+   * If this value is greater than 1000, it causes an error when requesting the drive API.
+   * If this value is too small, it causes the incremental loading to fail.
+   * The size of this value affects the responsiveness of the search.
+   */
   "search_result_list_page_size": 50,
+  // If you want to allow CORS, you can enable this.
   "enable_cors_file_down": false,
+  /**
+   * The basic auth above already includes on-disk global protection, so the default is not to authenticate the password in the .password file. So by default, passwords in .password files are no longer authenticated;
+   * If you still need to protect certain directories on top of the global auth using the .password file, set this option to true.
+   * Note: If you enable password authentication with .password files, an additional query will be added to each directory to check whether a .password file exists.
+   */
   "enable_password_file_verify": false
 };
 
