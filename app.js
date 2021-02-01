@@ -102,14 +102,18 @@ function nav(path) {
   var html = "";
   var cur = window.current_drive_order || 0;
   var names = window.drive_names;
-  html += `<select class="mdui-select" onchange="window.location.href=this.value" mdui-select style="overflow:visible;">`;
-  names.forEach((name, idx) => {
-    html += `<option value="/${idx}:/"  ${
-      idx === cur ? 'selected="selected"' : ""
-    } >${name}</option>`;
-  });
-  html += `</select>`;
-  html += `<a href="/${cur}:/" class="mdui-typo-headline folder">${document.siteName}</a>`;
+  var rootPath = ""
+  if (names.length > 1){
+    html += `<select class="mdui-select" onchange="window.location.href=this.value" mdui-select style="overflow:visible;">`;
+    names.forEach((name, idx) => {
+      html += `<option value="/${idx}:/"  ${
+        idx === cur ? 'selected="selected"' : ""
+      } >${name}</option>`;
+    });
+    html += `</select>`;
+    rootPath = `/${cur}:`
+  }
+  html += `<a href="${rootPath}/" class="mdui-typo-headline folder">${document.siteName}</a>`;
   if (!model.is_search_page) {
     var arr = path.trim("/").split("/");
     var p = "/";
@@ -122,7 +126,7 @@ function nav(path) {
         if (n == "") {
           break;
         }
-        html += `<i class="mdui-icon material-icons mdui-icon-dark folder" style="margin:0;">chevron_right</i><a class="folder" href="/${cur}:${p}">${n}</a>`;
+        html += `<i class="mdui-icon material-icons mdui-icon-dark folder" style="margin:0;">chevron_right</i><a class="folder" href="${rootPath}${p}">${n}</a>`;
       }
     }
   }
@@ -135,7 +139,7 @@ function nav(path) {
             <button class="mdui-textfield-icon mdui-btn mdui-btn-icon" onclick="if($('#search_bar').hasClass('mdui-textfield-expanded') && $('#search_bar_form>input').val()) $('#search_bar_form').submit();">
                 <i class="mdui-icon material-icons">search</i>
             </button>
-            <form id="search_bar_form" method="get" action="/${cur}:search">
+            <form id="search_bar_form" method="get" action="${rootPath}search">
             <input class="mdui-textfield-input" type="text" name="q" placeholder="Search in current drive" value="${search_text}"/>
             </form>
             <button class="mdui-textfield-close mdui-btn mdui-btn-icon"><i class="mdui-icon material-icons">close</i></button>
@@ -504,10 +508,10 @@ function onSearchResultItemClick(a_ele) {
     closeOnEsc: !0,
   });
   mdui.updateSpinners();
-  $.post(`/${cur}:id2path`, { id: a_ele.id }, function (data) {
+  $.post(`${rootPath}id2path`, { id: a_ele.id }, function (data) {
     if (data) {
       dialog.close();
-      var href = `/${cur}:${data}${can_preview ? "?a=view" : ""}`;
+      var href = `${rootPath}${data}${can_preview ? "?a=view" : ""}`;
       dialog = mdui.dialog({
         title: '<i class="mdui-icon material-icons"></i>Target Path',
         content: `<a href="${href}">${data}</a>`,

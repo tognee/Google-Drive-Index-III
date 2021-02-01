@@ -141,10 +141,10 @@ async function handleRequest(request) {
    * @returns {Response}
    */
   function redirectToIndexPage() {
-    return new Response('', {status: 301, headers: {'Location': `${url.origin}/0:/`}});
+    return new Response('', {status: 301, headers: {'Location': `${url.origin}${gds.length > 1 ? '/0:/' : '/'}`}});
   }
 
-  if (path == '/') return redirectToIndexPage();
+  if (path == '/' && gds.length > 1) return redirectToIndexPage();
   if (path.toLowerCase() == '/favicon.ico') {
     // You can find a favicon later
     return new Response('', {status: 404})
@@ -190,17 +190,21 @@ async function handleRequest(request) {
   // Expected path format
   const common_reg = /^\/\d+:\/.*$/g;
   try {
+    let order
     if (!path.match(common_reg)) {
-      return redirectToIndexPage();
+      if (gds.length > 1) return redirectToIndexPage();
+      order = 0
+    }else{
+      let split = path.split("/");
+      order = Number(split[1].slice(0, -1));
     }
-    let split = path.split("/");
-    let order = Number(split[1].slice(0, -1));
     if (order >= 0 && order < gds.length) {
       gd = gds[order];
     } else {
       return redirectToIndexPage()
     }
   } catch (e) {
+    console.log(e)
     return redirectToIndexPage()
   }
 
