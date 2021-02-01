@@ -2,22 +2,22 @@ document.write(
   '<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.5.1/jquery.min.js" integrity="sha512-bLT0Qm9VnAYZDflyKcBaQ2gg0hSYNQrJ8RilYldYQ1FxQYoCLtUjuuRuZo+fjqhx/qtq/1itJ0C2ejDxltZVFg==" crossorigin="anonymous"></script>'
 );
 document.write(
-  '<link rel="stylesheet" href="//cdn.jsdelivr.net/gh/tognee/Google-Drive-Index-III@1.0.0/css/mdui_v2.min.css">'
+  '<link rel="stylesheet" href="//cdn.jsdelivr.net/gh/tognee/goindex/css/mdui_v2.min.css">'
 );
 document.write(
-  '<link rel="stylesheet" href="//cdn.jsdelivr.net/gh/tognee/Google-Drive-Index-III@1.0.0/css/nexmoe_v2.min.css">'
+  '<link rel="stylesheet" href="//cdn.jsdelivr.net/gh/tognee/goindex/css/nexmoe_v2.min.css">'
 );
 document.write(
-  '<script src="//cdn.jsdelivr.net/gh/tognee/Google-Drive-Index-III@1.0.0/js/mdui.min.js"></script>'
+  '<script src="//cdn.jsdelivr.net/gh/tognee/goindex/js/mdui.min.js"></script>'
 );
 document.write(
-  '<script src="//cdn.jsdelivr.net/gh/tognee/Google-Drive-Index-III@1.0.0/js/flv.min.js"></script>'
+  '<script src="//cdn.jsdelivr.net/gh/tognee/goindex/js/flv.min.js"></script>'
 );
 document.write(
-  '<script src="//cdn.jsdelivr.net/gh/tognee/Google-Drive-Index-III@1.0.0/js/DPlayer.min.js"></script>'
+  '<script src="//cdn.jsdelivr.net/gh/tognee/goindex/js/DPlayer.min.js"></script>'
 );
 document.write(
-  '<script src="//cdn.jsdelivr.net/gh/tognee/Google-Drive-Index-III@1.0.0/js/markdown-it.min.js"></script>'
+  '<script src="//cdn.jsdelivr.net/gh/tognee/goindex/js/markdown-it.min.js"></script>'
 );
 document.write(
   "<style>.mdui-appbar .mdui-toolbar{height:56px;font-size:1pc}.mdui-toolbar>i{opacity:.5}.mdui-toolbar>i{padding:0}.mdui-toolbar>a:hover,a.active,a.mdui-typo-headline{opacity:1}.mdui-container{max-width:980px}.mdui-list-item{transition:none}.mdui-list>.th{background-color:initial}.mdui-list-item>a{width:100%;line-height:3pc}.mdui-list-item{margin:2px 0;padding:0}.mdui-toolbar>a:last-child{opacity:1}@media screen and (max-width:980px){.mdui-list-item .mdui-text-right{display:none}.mdui-container{width:100%!important;margin:0}}</style>"
@@ -41,7 +41,7 @@ function init() {
       }">
 				<ul class="menu_ul">
 					<li class="menu_li"><a href="https://telegram.dog/sawankumar" target="_blank">Contact</a></li>
-					<li class="menu_li"><a href="https://github.com/tognee/Google-Drive-Index-III" target="_blank">Github</a></li>
+					<li class="menu_li"><a href="https://github.com/tognee/goindex" target="_blank">Github</a></li>
 				</ul>
 				<div class="nav_icon" ></div>
 			</div>
@@ -608,8 +608,8 @@ function file_code(path) {
 </div>
 <a href="${href}" class="mdui-fab mdui-fab-fixed mdui-ripple mdui-color-theme-accent"><i class="mdui-icon material-icons">file_download</i></a>
 
-<script src="//cdn.jsdelivr.net/gh/tognee/Google-Drive-Index-III/js/ace.js"></script>
-<script src="//cdn.jsdelivr.net/gh/tognee/Google-Drive-Index-III/js/ext-language_tools.js"></script>
+<script src="//cdn.jsdelivr.net/gh/tognee/goindex/js/ace.js"></script>
+<script src="//cdn.jsdelivr.net/gh/tognee/goindex/js/ext-language_tools.js"></script>
 	`;
   $("#content").html(content);
   $.get(path, function (data) {
