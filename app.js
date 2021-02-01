@@ -117,17 +117,15 @@ function nav(path) {
   if (!model.is_search_page) {
     var arr = path.trim("/").split("/");
     var p = "/";
-    if (arr.length > 1) {
-      arr.shift();
-      for (i in arr) {
-        var n = arr[i];
-        n = decodeURI(n);
-        p += n + "/";
-        if (n == "") {
-          break;
-        }
-        html += `<i class="mdui-icon material-icons mdui-icon-dark folder" style="margin:0;">chevron_right</i><a class="folder" href="${rootPath}${p}">${n}</a>`;
+    if (rootPath != "" && arr.length > 1) arr.shift();
+    for (i in arr) {
+      var n = arr[i];
+      n = decodeURI(n);
+      p += n + "/";
+      if (n == "") {
+        break;
       }
+      html += `<i class="mdui-icon material-icons mdui-icon-dark folder" style="margin:0;">chevron_right</i><a class="folder" href="${rootPath}${p}">${n}</a>`;
     }
   }
   var search_text = model.is_search_page ? model.q || "" : "";
