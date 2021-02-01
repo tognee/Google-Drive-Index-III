@@ -59,13 +59,11 @@ const authConfig = {
  * web ui
  */
 const uiConfig = {
-  "theme": "material", // DO NOT set it to classic
-  "dark_mode": false,  // DO NOT set it to true, Not working yet
+  "dark_mode": false,
   "main_color": "blue-grey",
   "accent_color": "blue",
   "fluid_navigation_bar": true,
-  "avatar": "https://raw.githubusercontent.com/tognee/goindex/master/images/avatar.jpg",
-  "disable_navicon": true
+  "avatar": "https://raw.githubusercontent.com/tognee/goindex/master/images/avatar.jpg"
 };
 
 /**

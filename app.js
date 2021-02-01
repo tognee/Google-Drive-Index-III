@@ -1,61 +1,27 @@
-document.write(
-  '<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.5.1/jquery.min.js" integrity="sha512-bLT0Qm9VnAYZDflyKcBaQ2gg0hSYNQrJ8RilYldYQ1FxQYoCLtUjuuRuZo+fjqhx/qtq/1itJ0C2ejDxltZVFg==" crossorigin="anonymous"></script>'
-);
-document.write(
-  '<link rel="stylesheet" href="//cdn.jsdelivr.net/gh/tognee/goindex/css/mdui_v2.min.css">'
-);
-document.write(
-  '<link rel="stylesheet" href="//cdn.jsdelivr.net/gh/tognee/goindex/css/nexmoe_v2.min.css">'
-);
-document.write(
-  '<script src="//cdn.jsdelivr.net/gh/tognee/goindex/js/mdui.min.js"></script>'
-);
-document.write(
-  '<script src="//cdn.jsdelivr.net/gh/tognee/goindex/js/flv.min.js"></script>'
-);
-document.write(
-  '<script src="//cdn.jsdelivr.net/gh/tognee/goindex/js/DPlayer.min.js"></script>'
-);
-document.write(
-  '<script src="//cdn.jsdelivr.net/gh/tognee/goindex/js/markdown-it.min.js"></script>'
-);
-document.write(
-  "<style>.mdui-appbar .mdui-toolbar{height:56px;font-size:1pc}.mdui-toolbar>i{opacity:.5}.mdui-toolbar>i{padding:0}.mdui-toolbar>a:hover,a.active,a.mdui-typo-headline{opacity:1}.mdui-container{max-width:980px}.mdui-list-item{transition:none}.mdui-list>.th{background-color:initial}.mdui-list-item>a{width:100%;line-height:3pc}.mdui-list-item{margin:2px 0;padding:0}.mdui-toolbar>a:last-child{opacity:1}@media screen and (max-width:980px){.mdui-list-item .mdui-text-right{display:none}.mdui-container{width:100%!important;margin:0}}</style>"
-);
-if (UI.dark_mode) {
-  document.write(
-    `<style>* {box-sizing: border-box}body{color:rgba(255,255,255,.87);background-color:#333232}.mdui-theme-primary-${UI.main_color} .mdui-color-theme{background-color:#232427!important}</style>`
-  );
-}
+document.write(`
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.5.1/jquery.min.js" integrity="sha512-bLT0Qm9VnAYZDflyKcBaQ2gg0hSYNQrJ8RilYldYQ1FxQYoCLtUjuuRuZo+fjqhx/qtq/1itJ0C2ejDxltZVFg==" crossorigin="anonymous"></script>
+
+  <link rel="preconnect" href="https://fonts.gstatic.com">
+  <link href="https://fonts.googleapis.com/css2?family=Open+Sans:wght@400;700&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+
+  <link href="http://localhost:8000/css/style.css" rel="stylesheet">
+
+  <script src="//cdn.jsdelivr.net/gh/tognee/goindex/js/flv.min.js"></script>
+  <script src="//cdn.jsdelivr.net/gh/tognee/goindex/js/DPlayer.min.js"></script>
+  <script src="//cdn.jsdelivr.net/npm/markdown-it@10.0.0/dist/markdown-it.min.js"></script>`);
+
 function init() {
   document.siteName = $("title").html();
-  $("body").addClass(
-    `mdui-theme-primary-${UI.main_color} mdui-theme-accent-${UI.accent_color}`
-  );
+  if (UI.dark_mode) $(":root").attr("dark", true)
   var html = `
-<header class="nexmoe-nav">
-	<div class="navSize">
-			<a href="/"><img class="avatar" src="${UI.avatar}"/></a>
-			<div class="nav_menu"  style="display:${
-        UI.disable_navicon == true ? "none" : "block"
-      }">
-				<ul class="menu_ul">
-					<li class="menu_li"><a href="https://telegram.dog/sawankumar" target="_blank">Contact</a></li>
-					<li class="menu_li"><a href="https://github.com/tognee/goindex" target="_blank">Github</a></li>
-				</ul>
-				<div class="nav_icon" ></div>
-			</div>
-	</div>
+<header>
+		<a href="/"><img class="avatar" src="${UI.avatar}"/></a>
+    <div id="nav" class="navbar"> </div>
 </header>
-<div class="mdui-container">
-	<div class="mdui-container-fluid">
-		<div id="nav" class="mdui-toolbar nexmoe-item nav-style"> </div>
-    </div>
-	<div class="mdui-container-fluid">
-		<div id="head_md" class="mdui-typo nexmoe-item" style="display:none;padding: 20px 0;"></div>
-		<div id="content" class="nexmoe-item"></div>
-	 	<div id="readme_md" class="mdui-typo nexmoe-item" style="display:none; padding: 20px 0;"></div>
-	</div>
+<div class="container">
+	<article id="content">
+  </article>
 </div>
 	`;
   $("body").html(html);
@@ -104,18 +70,18 @@ function nav(path) {
   var names = window.drive_names;
   var rootPath = ""
   if (names.length > 1){
-    html += `<select class="mdui-select" onchange="window.location.href=this.value" mdui-select style="overflow:visible;">`;
+    html += `<select onchange="window.location.href=this.value" style="overflow:visible;">`;
     names.forEach((name, idx) => {
       html += `<option value="/${idx}:/" ${idx === cur ? 'selected="selected"' : ""}>${name}</option>`;
     });
     html += `</select>`;
     rootPath = `/${cur}:`
   }
-  html += `<a href="${rootPath}/" class="mdui-typo-headline folder">${document.siteName}</a>`;
+  html += `<a href="${rootPath}/" class="root-folder">${document.siteName}</a>`;
   if (!model.is_search_page) {
     var arr = path.trim("/").split("/");
     var p = "/";
-    if (rootPath != "" && arr.length > 1) arr.shift();
+    if (arr.length && arr[0].match(/\d+:$/g)) arr.shift();
     for (i in arr) {
       var n = arr[i];
       n = decodeURI(n);
@@ -123,15 +89,13 @@ function nav(path) {
       if (n == "") {
         break;
       }
-      html += `<i class="mdui-icon material-icons mdui-icon-dark folder" style="margin:0;">chevron_right</i><a class="folder" href="${rootPath}${p}">${n}</a>`;
+      html += `<span class="material-icons" style="margin:0;">chevron_right</span><a href="${rootPath}${p}">${n}</a>`;
     }
   }
-  var search_text = model.is_search_page ? model.q || "" : "";
+  /*var search_text = model.is_search_page ? model.q || "" : "";
   const isMobile = Os.isMobile;
   var search_bar = `<div class="mdui-toolbar-spacer"></div>
-        <div id="search_bar" class="mdui-textfield mdui-textfield-expandable mdui-float-right ${
-          model.is_search_page ? "mdui-textfield-expanded" : ""
-        }" style="max-width:${isMobile ? 300 : 400}px">
+        <div id="search_bar" class="mdui-textfield mdui-textfield-expandable mdui-float-right ${model.is_search_page ? "mdui-textfield-expanded" : ""}" style="max-width:${isMobile ? 300 : 400}px">
             <button class="mdui-textfield-icon mdui-btn mdui-btn-icon" onclick="if($('#search_bar').hasClass('mdui-textfield-expanded') && $('#search_bar_form>input').val()) $('#search_bar_form').submit();">
                 <i class="mdui-icon material-icons">search</i>
             </button>
@@ -142,11 +106,12 @@ function nav(path) {
         </div>`;
   if (model.root_type < 2) {
     html += search_bar;
-  }
+  }*/
   $("#nav").html(html);
-  mdui.mutation();
-  mdui.updateTextFields();
+  //mdui.mutation();
+  //mdui.updateTextFields();
 }
+
 function requestListPath(path, params, resultCallback, authErrorCallback) {
   var p = {
     password: params.password || null,
@@ -162,6 +127,7 @@ function requestListPath(path, params, resultCallback, authErrorCallback) {
     }
   });
 }
+
 function requestSearch(params, resultCallback) {
   var p = {
     q: params.q || null,
@@ -175,39 +141,38 @@ function requestSearch(params, resultCallback) {
     }
   });
 }
+
 function list(path) {
   var content = `
-	 <div class="mdui-row">
-	  <ul class="mdui-list">
-	   <li class="mdui-list-item th">
-	    <div class="mdui-col-xs-12 mdui-col-sm-7">
-	     File
-	<i class="mdui-icon material-icons icon-sort" data-sort="name" data-order="more">expand_more</i>
-	    </div>
-	    <div class="mdui-col-sm-3 mdui-text-right">
-		Date Modified
-	<i class="mdui-icon material-icons icon-sort" data-sort="date" data-order="downward">expand_more</i>
-	    </div>
-	    <div class="mdui-col-sm-2 mdui-text-right">
-	     Size
-	<i class="mdui-icon material-icons icon-sort" data-sort="size" data-order="downward">expand_more</i>
-	    </div>
-	    </li>
-	  </ul>
-	 </div>
-	 <div class="mdui-row">
-	  <ul id="list" class="mdui-list">
-	  </ul>
-	  <div id="count" class="mdui-hidden mdui-center mdui-text-center mdui-m-b-3 mdui-typo-subheading mdui-text-color-blue-grey-500">Total <span class="number"></span> Item</div>
-	 </div>
+  <table id="contentTable">
+    <thead>
+      <tr>
+        <th>
+          File
+          <span class="material-icons icon-sort" data-sort="name" data-order="more">expand_more</span>
+        </th>
+        <th class="right hide-on-mobile">
+          Date Modified
+          <span class="material-icons icon-sort" data-sort="name" data-order="more">expand_more</span>
+        </th>
+        <th class="right hide-on-mobile">
+          Size
+          <span class="material-icons icon-sort" data-sort="name" data-order="more">expand_more</span>
+        </th>
+      </tr>
+    </thead>
+    <tbody id="list"> </tbody>
+  </table>
+  <div id="count" class="hidden">Total <span class="number"></span> Item</div>
 	`;
   $("#content").html(content);
   var password = localStorage.getItem("password" + path);
-  $("#list").html(
-    `<div class="mdui-progress"><div class="mdui-progress-indeterminate"></div></div>`
-  );
-  $("#readme_md").hide().html("");
-  $("#head_md").hide().html("");
+
+  $("#list").html(`<tr><td class="mdui-progress"><div class="mdui-progress-indeterminate"></div></td></tr>`);
+
+  // $("#readme_md").hide().html("");
+  // $("#head_md").hide().html("");
+
   function successResultCallback(res, path, prevReqParams) {
     $("#list")
       .data("nextPageToken", res.nextPageToken)
@@ -236,7 +201,7 @@ function list(path) {
             $(
               `<div id="spinner" class="mdui-spinner mdui-spinner-colorful mdui-center"></div>`
             ).insertBefore("#readme_md");
-            mdui.updateSpinners();
+            //mdui.updateSpinners();
             let $list = $("#list");
             requestListPath(
               path,
@@ -273,6 +238,7 @@ function list(path) {
     }
   );
 }
+
 function append_files_to_list(path, files) {
   var $list = $("#list");
   var is_lastpage_loaded = null === $list.data("nextPageToken");
@@ -288,48 +254,44 @@ function append_files_to_list(path, files) {
     item.modifiedTime = utc2beijing(item.modifiedTime);
     item.size = formatFileSize(item.size);
     if (item.mimeType == "application/vnd.google-apps.folder") {
-      html += `<li class="mdui-list-item mdui-ripple"><a href="${p}" class="folder">
-	            <div class="mdui-col-xs-12 mdui-col-sm-7 mdui-text-truncate" title="${item.name}">
-	            <i class="mdui-icon material-icons">folder_open</i>
-	              ${item.name}
-	            </div>
-	            <div class="mdui-col-sm-3 mdui-text-right">${item["modifiedTime"]}</div>
-	            <div class="mdui-col-sm-2 mdui-text-right">${item["size"]}</div>
-	            </a>
-	        </li>`;
+      html += `
+        <tr class="list_item" onclick="window.location='${p}';">
+          <td title="${item.name}"><span class="material-icons">folder_open</span> ${item.name}</td>
+          <td class="right hide-on-mobile">${item["modifiedTime"]}</td>
+          <td class="right hide-on-mobile">${item["size"]}</td>
+        </tr>`;
     } else {
       var p = path + item.name;
       const filepath = path + item.name;
       var c = "file";
+
+      // Readme File
       if (is_lastpage_loaded && item.name == "README.md") {
         get_file(p, item, function (data) {
           markdown("#readme_md", data);
         });
       }
+
+      // Header File
       if (item.name == "HEAD.md") {
         get_file(p, item, function (data) {
           markdown("#head_md", data);
         });
       }
+
       var ext = p.split(".").pop().toLowerCase();
       if (
-        "|html|php|css|go|java|js|json|txt|sh|md|mp4|webm|avi|bmp|jpg|jpeg|png|gif|m4a|mp3|flac|wav|ogg|mpg|mpeg|mkv|rm|rmvb|mov|wmv|asf|ts|flv|pdf|".indexOf(
-          `|${ext}|`
-        ) >= 0
-      ) {
+        "|html|php|css|go|java|js|json|txt|sh|md|mp4|webm|avi|bmp|jpg|jpeg|png|gif|m4a|mp3|flac|wav|ogg|mpg|mpeg|mkv|rm|rmvb|mov|wmv|asf|ts|flv|pdf|".indexOf(`|${ext}|`) >= 0) {
         targetFiles.push(filepath);
         p += "?a=view";
         c += " view";
       }
-      html += `<li class="mdui-list-item file mdui-ripple" target="_blank"><a gd-type="${item.mimeType}" href="${p}" class="${c}">
-	          <div class="mdui-col-xs-12 mdui-col-sm-7 mdui-text-truncate" title="${item.name}">
-	          <i class="mdui-icon material-icons">insert_drive_file</i>
-	            ${item.name}
-	          </div>
-	          <div class="mdui-col-sm-3 mdui-text-right">${item["modifiedTime"]}</div>
-	          <div class="mdui-col-sm-2 mdui-text-right">${item["size"]}</div>
-	          </a>
-	      </li>`;
+      html += `
+        <tr gd-type="${item.mimeType}" class="list_item ${c}" onclick="window.location='${p}';">
+          <td title="${item.name}"><span class="mdui-icon material-icons">insert_drive_file</span> ${item.name}</td>
+          <td class="right hide-on-mobile">${item["modifiedTime"]}</td>
+          <td class="right hide-on-mobile">${item["size"]}</td>
+        </tr>`;
     }
   }
   if (targetFiles.length > 0) {
@@ -352,9 +314,9 @@ function append_files_to_list(path, files) {
   $list.html(($list.data("curPageIndex") == "0" ? "" : $list.html()) + html);
   if (is_lastpage_loaded) {
     $("#count")
-      .removeClass("mdui-hidden")
+      .removeClass("hidden")
       .find(".number")
-      .text($list.find("li.mdui-list-item").length);
+      .text($list.find("tr.list_item").length);
   }
 }
 function render_search_result_list() {
@@ -364,15 +326,15 @@ function render_search_result_list() {
 	 <div class="mdui-row">
 	  <ul class="mdui-list">
 	   <li class="mdui-list-item th">
-	    <div class="mdui-col-xs-12 mdui-col-sm-7">
+	    <div class="pure-u-1 pure-u-sm-14-24">
 	     File
 	<i class="mdui-icon material-icons icon-sort" data-sort="name" data-order="more">expand_more</i>
 	    </div>
-	    <div class="mdui-col-sm-3 mdui-text-right">
+	    <div class="pure-u-sm-6-24 mdui-text-right">
 	     Date Modified
 	<i class="mdui-icon material-icons icon-sort" data-sort="date" data-order="downward">expand_more</i>
 	    </div>
-	    <div class="mdui-col-sm-2 mdui-text-right">
+	    <div class="pure-u-sm-4-24 mdui-text-right">
 	     Size
 	<i class="mdui-icon material-icons icon-sort" data-sort="size" data-order="downward">expand_more</i>
 	    </div>
@@ -382,7 +344,7 @@ function render_search_result_list() {
 	 <div class="mdui-row">
 	  <ul id="list" class="mdui-list">
 	  </ul>
-	  <div id="count" class="mdui-hidden mdui-center mdui-text-center mdui-m-b-3 mdui-typo-subheading mdui-text-color-blue-grey-500">Total <span class="number"></span> Item(s)</div>
+	  <div id="count" class="hidden mdui-center mdui-text-center mdui-m-b-3 mdui-typo-subheading mdui-text-color-blue-grey-500">Total <span class="number"></span> Item(s)</div>
 	 </div>
 	 <div id="readme_md" class="mdui-typo" style="display:none; padding: 20px 0;"></div>
 	`;
@@ -420,7 +382,7 @@ function render_search_result_list() {
             $(
               `<div id="spinner" class="mdui-spinner mdui-spinner-colorful mdui-center"></div>`
             ).insertBefore("#readme_md");
-            mdui.updateSpinners();
+            //mdui.updateSpinners();
             let $list = $("#list");
             requestSearch(
               {
@@ -454,12 +416,12 @@ function append_search_result_to_list(files) {
     item.size = formatFileSize(item.size);
     if (item.mimeType == "application/vnd.google-apps.folder") {
       html += `<li class="mdui-list-item mdui-ripple"><a id="${item["id"]}" onclick="onSearchResultItemClick(this)" class="folder">
-	            <div class="mdui-col-xs-12 mdui-col-sm-7 mdui-text-truncate" title="${item.name}">
+	            <div class="pure-u-1 pure-u-sm-14-24 mdui-text-truncate" title="${item.name}">
 	            <i class="mdui-icon material-icons">folder_open</i>
 	              ${item.name}
 	            </div>
-	            <div class="mdui-col-sm-3 mdui-text-right">${item["modifiedTime"]}</div>
-	            <div class="mdui-col-sm-2 mdui-text-right">${item["size"]}</div>
+	            <div class="pure-u-sm-6-24 mdui-text-right">${item["modifiedTime"]}</div>
+	            <div class="pure-u-sm-4-24 mdui-text-right">${item["size"]}</div>
 	            </a>
 	        </li>`;
     } else {
@@ -473,12 +435,12 @@ function append_search_result_to_list(files) {
         c += " view";
       }
       html += `<li class="mdui-list-item file mdui-ripple" target="_blank"><a id="${item["id"]}" gd-type="${item.mimeType}" onclick="onSearchResultItemClick(this)" class="${c}">
-	          <div class="mdui-col-xs-12 mdui-col-sm-7 mdui-text-truncate" title="${item.name}">
+	          <div class="pure-u-1 pure-u-sm-14-24 mdui-text-truncate" title="${item.name}">
 	          <i class="mdui-icon material-icons">insert_drive_file</i>
 	            ${item.name}
 	          </div>
-	          <div class="mdui-col-sm-3 mdui-text-right">${item["modifiedTime"]}</div>
-	          <div class="mdui-col-sm-2 mdui-text-right">${item["size"]}</div>
+	          <div class="pure-u-sm-6-24 mdui-text-right">${item["modifiedTime"]}</div>
+	          <div class="pure-u-sm-4-24 mdui-text-right">${item["size"]}</div>
 	          </a>
 	      </li>`;
     }
@@ -486,11 +448,12 @@ function append_search_result_to_list(files) {
   $list.html(($list.data("curPageIndex") == "0" ? "" : $list.html()) + html);
   if (is_lastpage_loaded) {
     $("#count")
-      .removeClass("mdui-hidden")
+      .removeClass("hidden")
       .find(".number")
       .text($list.find("li.mdui-list-item").length);
   }
 }
+/*
 function onSearchResultItemClick(a_ele) {
   var me = $(a_ele);
   var can_preview = me.hasClass("view");
@@ -543,6 +506,7 @@ function onSearchResultItemClick(a_ele) {
     });
   });
 }
+*/
 function get_file(path, file, callback) {
   var key = "file_path_" + path + file.modifiedTime;
   var data = localStorage.getItem(key);
@@ -678,7 +642,7 @@ function file_video(path) {
   $("#content").html(content);
   $("#copy-link").on("click", () => {
     copyToClipboard(url);
-    mdui.snackbar("Copied to clipboard!");
+    //mdui.snackbar("Copied to clipboard!");
   });
   const dp = new DPlayer({
     container: document.getElementById("dplayer"),
