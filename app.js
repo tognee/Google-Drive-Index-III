@@ -5,10 +5,10 @@ document.write(`
   <link href="https://fonts.googleapis.com/css2?family=Open+Sans:wght@400;700&display=swap" rel="stylesheet">
   <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
 
-  <link href="//cdn.jsdelivr.net/gh/tognee/goindex@v1.1/css/style.css" rel="stylesheet">
+  <link href="//cdn.jsdelivr.net/gh/tognee/goindex@2.0.0/css/style.css" rel="stylesheet">
 
-  <script src="//cdn.jsdelivr.net/gh/tognee/goindex@v1.1/js/flv.min.js"></script>
-  <script src="//cdn.jsdelivr.net/gh/tognee/goindex@v1.1/js/DPlayer.min.js"></script>
+  <script src="//cdn.jsdelivr.net/gh/tognee/goindex@2.0.0/js/flv.min.js"></script>
+  <script src="//cdn.jsdelivr.net/gh/tognee/goindex@2.0.0/js/DPlayer.min.js"></script>
   <script src="//cdn.jsdelivr.net/npm/markdown-it@10.0.0/dist/markdown-it.min.js"></script>`);
 
 function init() {
