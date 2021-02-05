@@ -5,10 +5,10 @@ document.write(`
   <link href="https://fonts.googleapis.com/css2?family=Open+Sans:wght@400;700&display=swap" rel="stylesheet">
   <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
 
-  <link href="//cdn.jsdelivr.net/gh/tognee/goindex/css/style.css" rel="stylesheet">
+  <link href="//cdn.jsdelivr.net/gh/tognee/goindex@v1.1/css/style.css" rel="stylesheet">
 
-  <script src="//cdn.jsdelivr.net/gh/tognee/goindex/js/flv.min.js"></script>
-  <script src="//cdn.jsdelivr.net/gh/tognee/goindex/js/DPlayer.min.js"></script>
+  <script src="//cdn.jsdelivr.net/gh/tognee/goindex@v1.1/js/flv.min.js"></script>
+  <script src="//cdn.jsdelivr.net/gh/tognee/goindex@v1.1/js/DPlayer.min.js"></script>
   <script src="//cdn.jsdelivr.net/npm/markdown-it@10.0.0/dist/markdown-it.min.js"></script>`);
 
 function init() {
@@ -569,9 +569,6 @@ function file_code(path) {
 	<input class="mdui-textfield-input" type="text" value="${href}"/>
 </div>
 <a href="${href}" class="mdui-fab mdui-fab-fixed mdui-ripple mdui-color-theme-accent"><i class="mdui-icon material-icons">file_download</i></a>
-
-<script src="//cdn.jsdelivr.net/gh/tognee/goindex/js/ace.js"></script>
-<script src="//cdn.jsdelivr.net/gh/tognee/goindex/js/ext-language_tools.js"></script>
 	`;
   $("#content").html(content);
   $.get(path, function (data) {
